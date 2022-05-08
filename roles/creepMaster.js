@@ -3,7 +3,8 @@ import { Creep } from '/game/prototypes';
 
 import { runMiner } from "./miner";
 import { runScout } from "./scout";
-import {runButler } from "./butler";
+import { runButler } from "./butler";
+import { baseDefence, baseHealers } from "./baseDefence";
 
 export function creepMaster(creep, spawn) {
     // console.log('we hit the creep master whoop!')
@@ -14,5 +15,9 @@ export function creepMaster(creep, spawn) {
         runScout(creep);
     } else if (creep.role === 'butler') {
         runButler(creep);
+    } else if (creep.role === 'defender') {
+        baseDefence(creep)
+    } else if (creep.role === 'defenderHeal') {
+        baseHealers(creep)
     }
 }

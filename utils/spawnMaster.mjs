@@ -17,6 +17,15 @@ function customSpawner(spawn, creepBody, role) {
         // console.log('oppps creep must not be around yet')
     }
 }
+function customGroupSpawner(spawn, creepBody, role, group) {
+    let c = spawn.spawnCreep(creepBody).object;
+    try {
+        c.role = role
+        c.groupNumber = group
+    } catch (error) {
+        // console.log('oppps creep must not be around yet')
+    }
+}
 
 export function spawnMaster(spawn) {
     // Creep Types
@@ -24,6 +33,8 @@ export function spawnMaster(spawn) {
     let myMiners = myCreeps.filter(c => c.role === 'miner');
     let myScouts = myCreeps.filter(c => c.role === 'scout');
     let myButlers = myCreeps.filter(c => c.role === 'butler');
+    let mydefenders = myCreeps.filter(c => c.role === 'defender')
+    let mydefhealers = myCreeps.filter(c => c.role === 'defenderHeal')
 
     // Creep selection code
     // console.log(myScouts.length)
@@ -44,10 +55,16 @@ export function spawnMaster(spawn) {
         } catch (error) {
             // console.log('oppps creep must not be around yet')
         }
-    } else if (myMiners.length <= 2) {
+    } else if (myMiners.length < 2) {
         console.log('attempting to spawn a 2nd Miner')
         customSpawner(spawn, [WORK, WORK, WORK, MOVE], 'miner' )
-    }else if (myScouts.length < 2) { //Getting a Scout out to get the ball rolling
+    } else if (mydefenders.length < 1) {
+        console.log('attempting to spawn Defenders')
+        customGroupSpawner(spawn, [TOUGH, TOUGH, TOUGH , TOUGH, RANGED_ATTACK, RANGED_ATTACK, RANGED_ATTACK, MOVE, MOVE], 'defender', 'base')
+    } else if (mydefhealers.length <= 2) {
+        console.log('attempting to spawn Defence Healers')
+        customGroupSpawner(spawn, [TOUGH, HEAL, HEAL, MOVE, MOVE], 'defenderHeal', 'base')
+    } else if (myScouts.length < 2) { //Getting a Scout out to get the ball rolling
         console.log('attempting to spawn a scout creep')
         let c = spawn.spawnCreep([TOUGH, WORK, CARRY, RANGED_ATTACK, HEAL, CARRY, MOVE, MOVE]).object;
         try {
