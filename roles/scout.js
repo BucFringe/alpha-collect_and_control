@@ -17,7 +17,7 @@ export function runScout(creep) {
             creep.rangedAttack(nearEnemies[0]);
         } else {
             if (containers.length > 0) {
-                if (creep.store.getFreeCapacity(RESOURCE_ENERGY)){
+                if (creep.store.getFreeCapacity(RESOURCE_SCORE)){
                     let closest = findClosestByPath(scorers[0], containers);
                     if (creep.withdraw(closest, RESOURCE_SCORE) === ERR_NOT_IN_RANGE) {
                         creep.moveTo(closest)
