@@ -36,7 +36,7 @@ export function spawnMaster(spawn) {
         } catch (error) {
             // console.log('oppps creep must not be around yet')
         }
-    } else if (myButlers.length <= 1) {
+    } else if (myButlers.length < 1) {
         console.log('attempting to spawn a butler')
         let c = spawn.spawnCreep([MOVE, CARRY]).object;
         try {

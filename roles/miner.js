@@ -7,6 +7,7 @@ import { Visual } from '/game/visual'
 export function runMiner(creep, spawn) {
     let source = getObjectsByPrototype(Source);
     let closeSource = findClosestByPath(creep, source)
+
     if (creep.harvest(closeSource) === ERR_NOT_IN_RANGE) {
         creep.moveTo(closeSource)
     }
