@@ -23,7 +23,7 @@ export function loop() {
         spawnMaster(spawn);
     });
     myCreeps.forEach(creep => {
-        creepMaster(creep);
+        creepMaster(creep, mySpawn);
     })
 }
 
